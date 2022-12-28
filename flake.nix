@@ -5,10 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs";
   };
 
-  outputs = {self, nixpkgs}: 
-    let 
+  outputs = { self, nixpkgs }:
+    let
 
-      supportedSystems = ["x86_64-linux" "aarch64-linux"];
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
 
       # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -16,21 +16,23 @@
       # Nixpkgs instantiated for supported system types.
       nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
 
-    in {
+    in
+    {
 
       packages = forAllSystems (system:
-        let 
+        let
 
           pkgs = nixpkgsFor.${system};
 
           platform = {
-              aarch64-linux = "linux-aarch64";
-              x86_64-linux = "linux-x86_64";
-            }.${system} or (throw "Unsupported system: ${system}");
+            aarch64-linux = "linux-aarch64";
+            x86_64-linux = "linux-x86_64";
+          }.${system} or (throw "Unsupported system: ${system}");
 
           hosttype = pkgs.lib.strings.removePrefix "linux-" platform;
 
-        in rec {
+        in
+        rec {
 
           zephyr-sdk-arm = with pkgs; stdenv.mkDerivation rec {
             pname = "zephyr-sdk-arm";
