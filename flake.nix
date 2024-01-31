@@ -36,13 +36,13 @@
 
           zephyr-sdk-arm = with pkgs; stdenv.mkDerivation rec {
             pname = "zephyr-sdk-arm";
-            version = "0.15.2";
+            version = "0.16.4";
 
             src = fetchurl {
-              url = "https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${version}/zephyr-sdk-${version}_${platform}.tar.gz";
+              url = "https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${version}/zephyr-sdk-${version}_${platform}.tar.xz";
               sha256 = {
-                aarch64-linux = "sha256-DTbkCoGjqhtk1lxMXGzTgVVaM+8WhLe6mCNvpIbxdqQ=";
-                x86_64-linux = "sha256-jjVy+8qfm6GKRDbADWgK80qF4jn3/mbHmI2oVXGg0j0=";
+                aarch64-linux = "sha256-anh8zyeuQjF7xKo55D83waTds0T7AXkcgk/TYa0qd0w=";
+                x86_64-linux = "sha256-0BmqqjQlyoQliCm1GOsfhy6XNu1Py7bZQIxMs3zSfjE=";
               }.${system} or (throw "Unsupported system: ${system}");
             };
 
