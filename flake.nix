@@ -47,7 +47,7 @@
             };
 
             nativeBuildInputs = [
-              python38
+              python311
               which
               cmake
               wget
@@ -82,7 +82,7 @@
               find $out/arm-zephyr-eabi $out/${hosttype}-zephyr-elf -type f | while read f; do
                 patchelf "$f" > /dev/null 2>&1 || continue
                 patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) "$f" || true
-                patchelf --set-rpath ${lib.makeLibraryPath [ "$out" stdenv.cc.cc ncurses5 python38 ]} "$f" || true
+                patchelf --set-rpath ${lib.makeLibraryPath [ "$out" stdenv.cc.cc ncurses5 python311 ]} "$f" || true
               done
             '';
 
